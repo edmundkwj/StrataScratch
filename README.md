@@ -1,3 +1,3 @@
 # StrataScratch
 
-Record of SQL & Python practices
+Record of my SQL practices
