@@ -1,0 +1,8 @@
+SELECT
+facebook_employees.location AS location,
+AVG(facebook_hack_survey.popularity) AS location
+FROM facebook_employees
+JOIN facebook_hack_survey
+ON facebook_employees.id = facebook_hack_survey.employee_id
+AND facebook_employees.gender = facebook_hack_survey.gender
+GROUP BY location;
