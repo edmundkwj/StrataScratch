@@ -1,3 +1,3 @@
 # StrataScratch
 
-Recording my SQL practice attempts 
+Records of my SQL practices
