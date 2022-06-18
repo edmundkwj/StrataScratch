@@ -1,3 +1,9 @@
+/*
+Find employees who are earning more than their managers. 
+Output the employee's first name along with the corresponding salary.
+https://platform.stratascratch.com/coding/9894-employee-and-manager-salaries
+*/
+
 SELECT 
     a.first_name,
     a.salary
