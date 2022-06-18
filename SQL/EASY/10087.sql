@@ -1,4 +1,11 @@
-SELECt distinct facebook_posts.*
+/*
+Find all posts which were reacted to with a heart.
+https://platform.stratascratch.com/coding/10087-find-all-posts-which-were-reacted-to-with-a-heart
+*/
+
+SELECT 
+  DISTINCT 
+  facebook_posts.*
 FROM facebook_reactions
 JOIN facebook_posts
   ON facebook_reactions.poster = facebook_posts.poster 

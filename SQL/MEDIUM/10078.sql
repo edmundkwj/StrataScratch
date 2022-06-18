@@ -1,6 +1,12 @@
+/*
+Find matching hosts and guests pairs in a way that they are both of the same gender and nationality.
+Output the host id and the guest id of matched pair.
+https://platform.stratascratch.com/coding/10078-find-matching-hosts-and-guests-in-a-way-that-they-are-both-of-the-same-gender-and-nationality
+*/
+
 SELECT
-h.host_id,
-g.guest_id
+    h.host_id,
+    g.guest_id
 FROM airbnb_hosts AS h
 INNER JOIN airbnb_guests AS g
         ON h.nationality = g.nationality AND

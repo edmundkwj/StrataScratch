@@ -1,19 +1,28 @@
-with user_sessions AS (
-SELECT 
-t1.user_id, 
-t1.timestamp::date AS session_date,
-MIN(t2.timestamp) - MAX(t1.timestamp) AS session_duration
-FROM facebook_web_log AS t1
-JOIN facebook_web_log AS t2
-    ON t1.user_id = t2.user_id
-    AND t1.timestamp::DATE = t2.timestamp::DATE
-WHERE t1.action = 'page_load'
-    AND t2.action = 'page_exit'
-GROUP BY 1, 2
+/*
+Calculate each user's average session time. 
+A session is defined as the time difference between a page_load and page_exit. 
+For simplicity, assume a user has only 1 session per day and if there are multiple of the same events on that day, consider only the latest page_load and earliest page_exit. 
+Output the user_id and their average session time.
+https://platform.stratascratch.com/coding/10352-users-by-avg-session-time
+*/
+
+WITH user_sessions AS (
+    SELECT 
+        user_id,
+        DATE(timestamp) AS date,
+        MAX(CASE WHEN action = 'page_load' THEN timestamp ELSE NULL END) AS page_load,
+        MIN(CASE WHEN action = 'page_exit' THEN timestamp ELSE NULL END) AS page_exit
+    FROM facebook_web_log
+    GROUP BY 
+        user_id, 
+        date
 )
 
 SELECT 
-user_id,
-AVG(session_duration) AS avg_session_duration
+    user_id,
+    AVG(TIMESTAMPDIFF(second, page_load, page_exit))  AS avg_session_duration
 FROM user_sessions
-GROUP BY user_id
+WHERE page_load IS NOT NULL
+  AND page_exit IS NOT NULL
+GROUP BY 
+    user_id
